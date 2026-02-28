@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "tailwindcss/preflight" layer(base);
+
+/* Override: let Chakra handle the base reset */
+@layer base {
+  html { line-height: unset; }
+}
