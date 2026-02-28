@@ -106,7 +106,7 @@ export default function Evaluator({ transcript, atsData, onRestart }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('https://7g2vm487-3000.inc1.devtunnels.ms/api/interview/evaluate', {
+      const res = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/interview/evaluate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

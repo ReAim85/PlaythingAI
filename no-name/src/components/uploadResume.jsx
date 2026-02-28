@@ -86,7 +86,7 @@ export default function UploadResume({ onAnalysisComplete }) {
         if (jdTitle) formData.append('jd_title', jdTitle);
       }
 
-      const res = await fetch('https://7g2vm487-3000.inc1.devtunnels.ms/api/resume/analyze', { method: 'POST', body: formData });
+      const res = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/resume/analyze', { method: 'POST', body: formData });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || 'Analysis failed');

@@ -274,7 +274,7 @@ export default function Interviewer({ atsData, apiKey, onInterviewEnd }) {
               color={isLive && isSpeaking ? 'amber.500' : 'gray.700'}
               transition="color 0.3s ease"
             >
-              {isLive && isSpeaking ? 'Alex is speaking' : isLive ? 'Listening…' : 'Waiting'}
+              {isLive && isSpeaking ? 'Karma is speaking' : isLive ? 'Listening…' : 'Waiting'}
             </Text>
           </Box>
         </Box>
