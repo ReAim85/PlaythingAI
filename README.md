@@ -13,7 +13,7 @@
 
 **Plaything.AI** is a full-stack, multi-agent interview preparation platform built at the TRAE Hackathon. It takes a candidate from raw resume upload through to a scored, post-interview evaluation report — entirely driven by AI.
 
-The problem it solves: most interview prep tools give you generic questions from a static bank. Plaything.AI reads *your* resume, scores it against a real job description using ATS logic, identifies the exact gaps recruiters would flag, and then deploys a live AI voice interviewer (Alex) who probes those specific weaknesses. The result is a personalised, end-to-end pipeline that mirrors what actually happens when a recruiter and hiring manager review your application.
+The problem it solves: most interview prep tools give you generic questions from a static bank. Plaything.AI reads *your* resume, scores it against a real job description using ATS logic, identifies the exact gaps recruiters would flag, and then deploys a live AI voice interviewer (Karma) who probes those specific weaknesses. The result is a personalised, end-to-end pipeline that mirrors what actually happens when a recruiter and hiring manager review your application.
 
 > *"Resume to interview to insights — one intelligent pipeline."*
 
@@ -31,7 +31,7 @@ Resume Upload (PDF / Image)
         100-point score across 6 dimensions
         If score < 65 → Cerebras Fixer Agent generates improvement plan
         ↓
-[Agent 3] Gemini 2.5 Flash Live — AI Interviewer "Alex"
+[Agent 3] Gemini 2.5 Flash Live — AI Interviewer "Karma"
         System prompt built from resume gaps + JD keywords
         Real-time voice session
         ↓
@@ -144,11 +144,11 @@ The platform returns a 100-point ATS score broken down across six dimensions. Ma
 
 **Step 3 — Start your interview**
 
-Click "Start Interview" to connect to Alex, your AI interviewer. Allow microphone access when prompted. Alex will greet you by name and conduct a structured voice interview — his questions are built directly from your resume gaps and the JD. Click "End Call" when done.
+Click "Start Interview" to connect to Karma, your AI interviewer. Allow microphone access when prompted. Karma will greet you by name and conduct a structured voice interview — his questions are built directly from your resume gaps and the JD. Click "End Call" when done.
 
 **Step 4 — Review your evaluation report**
 
-After the session, Cerebras analyses Alex's transcript and returns scores across five dimensions with written feedback, strengths, areas to improve, and a hiring signal. You can export the full report as JSON.
+After the session, Cerebras analyses Karma's transcript and returns scores across five dimensions with written feedback, strengths, areas to improve, and a hiring signal. You can export the full report as JSON.
 
 ## Project Structure
 
