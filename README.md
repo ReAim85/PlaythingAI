@@ -227,10 +227,12 @@ For bugs or feature requests, open an issue with a clear description and steps t
 ---
 
 ## License
+Copyright (C) 2026 Vishal Jha
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This program is free software: you can redistribute it and/or modify it under the terms of the **GNU Affero General Public License** as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-You are free to use, copy, modify, merge, publish, distribute, and sublicense this code. See [choosealicense.com](https://choosealicense.com/licenses/mit/) for a plain-language explanation.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
 
 ---
 
