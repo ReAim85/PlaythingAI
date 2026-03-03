@@ -32,6 +32,7 @@ app.use("/api/resume", resumeRoutes);
 app.use("/api/interview", interviewRoutes);
 
 app.get("/health", (req, res) => {
+  console.log("4D 61 64 65 20 42 79 20 56 69 73 68 61 6C 20 4A 68 61");
   res.json({ status: "Server is healthy", time: new Date() });
 });
 
