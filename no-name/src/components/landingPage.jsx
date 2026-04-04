@@ -230,17 +230,6 @@ export default function LandingPage({ onStart }) {
         </Flex>
       </Box>
 
-      {/* Sponsor strip */}
-      <Box bg={C.bgOff} borderBottom="1px solid" borderColor={C.border} py={2}>
-        <Flex justify="center" align="center" gap={2}>
-          <Text fontSize="11px" color={C.dim}>Built at</Text>
-          <Box px={2} py="1px" bg="rgba(180,220,0,0.12)"
-            border="1px solid" borderColor="rgba(100,130,0,0.2)" borderRadius="sm">
-            <Text fontSize="10px" fontWeight="700" color="#5a7a00"
-              letterSpacing="0.12em">TRAE HACKATHON</Text>
-          </Box>
-        </Flex>
-      </Box>
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <Box as="section" pt={{ base:16, md:24 }} pb={{ base:12, md:20 }}
