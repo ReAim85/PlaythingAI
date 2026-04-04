@@ -145,7 +145,7 @@ export const useGeminiLive = () => {
     try {
       await initAudio();
 
-      const tokenRes = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/session/gemini-token', { 
+      const tokenRes = await fetch('https://playthingai-production.up.railway.app/api/session/gemini-token', { 
         method: 'POST' 
       });
       if (!tokenRes.ok) {
