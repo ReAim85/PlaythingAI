@@ -534,14 +534,6 @@ export default function LandingPage({ onStart }) {
               Plaything<Text as="span" color={C.heading}>.AI</Text>
             </Text>
           </HStack>
-          <HStack spacing={2}>
-            <Text fontSize="xs" color={C.dim}>Built at</Text>
-            <Box px={2} py="1px" bg="rgba(180,220,0,0.12)"
-              border="1px solid" borderColor="rgba(100,130,0,0.2)" borderRadius="sm">
-              <Text fontSize="10px" fontWeight="700" color="#5a7a00"
-                letterSpacing="0.12em">TRAE HACKATHON</Text>
-            </Box>
-          </HStack>
           <Text fontSize="xs" color={C.dim}>
             Gemini Vision · Cerebras Llama · Google Live API
           </Text>
