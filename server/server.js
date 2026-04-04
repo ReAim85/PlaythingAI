@@ -6,7 +6,8 @@ import fs from "fs-extra";
 import "dotenv/config";
 
 import resumeRoutes from "./routes/resumeRoutes.js";
-import interviewRoutes from "./routes/Interviewroutes.js"; 
+import interviewRoutes from "./routes/Interviewroutes.js";
+import sessionRoute from "./routes/sessionRoute.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.use("/api/resume", resumeRoutes);
 app.use("/api/interview", interviewRoutes);
+app.use("/api/session", sessionRoute);
+
 
 app.get("/health", (req, res) => {
   res.json({ status: "Server is healthy", time: new Date() });

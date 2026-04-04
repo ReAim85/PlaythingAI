@@ -74,34 +74,23 @@ Follow this flow naturally — do NOT announce sections out loud:
 - Acknowledge good answers briefly, then move on`;
 }
 
-// Efficient base64 encoder for Int16Array (no spread operator overhead)
-function int16ArrayToBase64(int16Array) {
-  const bytes = new Uint8Array(int16Array.buffer, int16Array.byteOffset, int16Array.byteLength);
-  let binary = '';
-  const len = bytes.byteLength;
-  // Process in chunks to avoid call stack limits
-  const chunkSize = 0x8000; // 32k
-  for (let i = 0; i < len; i += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
-  }
-  return btoa(binary);
-}
-
+// No apiKey prop — token is fetched fresh inside startInterview
 export const useGeminiLive = () => {
-  const [status, setStatus] = useState('idle');
-  const [error, setError] = useState(null);
+  const [status, setStatus]         = useState('idle');
+  const [error, setError]           = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const sessionRef = useRef(null);
-  const audioContextRef = useRef(null);
-  const micContextRef = useRef(null);
-  const micStreamRef = useRef(null);
-  const workletNodeRef = useRef(null);
-  const nextPlayTimeRef = useRef(0);
+  const sessionRef       = useRef(null);
+  const audioContextRef  = useRef(null);
+  const micContextRef    = useRef(null);
+  const micStreamRef     = useRef(null);
+  const workletNodeRef   = useRef(null);
+  const nextPlayTimeRef  = useRef(0);
   const alexTranscriptRef = useRef([]);
-  const speakingTimerRef = useRef(null);
+  const speakingTimerRef  = useRef(null);
+  // Flips to false synchronously in stopInterview —
+  // stops the worklet sending to a closed socket
   const activeRef = useRef(false);
-  const isSendingRef = useRef(false); // Backpressure guard
 
   const initAudio = async () => {
     audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
@@ -112,8 +101,8 @@ export const useGeminiLive = () => {
     if (!audioContextRef.current) return;
     if (audioContextRef.current.state === 'suspended') audioContextRef.current.resume();
 
-    const arrayBuffer = Uint8Array.from(atob(base64), c => c.charCodeAt(0)).buffer;
-    const int16Array = new Int16Array(arrayBuffer);
+    const arrayBuffer  = Uint8Array.from(atob(base64), c => c.charCodeAt(0)).buffer;
+    const int16Array   = new Int16Array(arrayBuffer);
     const float32Array = new Float32Array(int16Array.length);
     for (let i = 0; i < int16Array.length; i++) float32Array[i] = int16Array[i] / 32768;
 
@@ -145,15 +134,18 @@ export const useGeminiLive = () => {
     try {
       await initAudio();
 
-      const tokenRes = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/session/gemini-token', { 
-        method: 'POST' 
-      });
+      // ── Fetch a fresh token RIGHT NOW, not on page load ──────────────────
+      // This is the key fix — token is valid for 1 min to start a session,
+      // so it must be fetched immediately before connecting, never in advance.
+      const tokenRes = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/session/gemini-token', { method: 'POST' });
       if (!tokenRes.ok) {
         const err = await tokenRes.json();
         throw new Error(err.error || 'Failed to get session token');
       }
       const { token } = await tokenRes.json();
+      console.log('Fresh token fetched:', token); // remove after confirming it works
 
+      // ── Connect with the token — v1alpha required on BOTH sides ──────────
       const ai = new GoogleGenAI({
         apiKey: token,
         httpOptions: { apiVersion: 'v1alpha' },
@@ -168,7 +160,7 @@ export const useGeminiLive = () => {
         callbacks: {
           onopen: async () => {
             setStatus('live');
-            activeRef.current = true;
+            activeRef.current = true; // session confirmed live — mic can send
 
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             micStreamRef.current = stream;
@@ -181,44 +173,24 @@ export const useGeminiLive = () => {
             const workletNode = new AudioWorkletNode(micContext, 'recorder-worklet');
             workletNodeRef.current = workletNode;
 
-            // OPTIMIZED: 32ms chunks (512 samples) with zero-allocation ring buffer
-            const TARGET_SAMPLES = 512; // 32ms @ 16kHz (was 2048 = 128ms)
-            const audioBuffer = new Int16Array(TARGET_SAMPLES);
-            let bufferIndex = 0;
-
+            let pcmBuffer = [];
             workletNode.port.onmessage = (event) => {
-              // Backpressure: drop frame if previous send hasn't finished
-              if (!activeRef.current || !sessionRef.current || isSendingRef.current) return;
+              // Guard — drop chunks silently if session is gone
+              if (!activeRef.current || !sessionRef.current) return;
 
               const int16Data = new Int16Array(event.data);
-              let dataOffset = 0;
+              for (let i = 0; i < int16Data.length; i++) pcmBuffer.push(int16Data[i]);
 
-              // Accumulate into fixed-size buffer
-              while (dataOffset < int16Data.length) {
-                const spaceAvailable = TARGET_SAMPLES - bufferIndex;
-                const samplesToCopy = Math.min(spaceAvailable, int16Data.length - dataOffset);
-                
-                audioBuffer.set(int16Data.subarray(dataOffset, dataOffset + samplesToCopy), bufferIndex);
-                bufferIndex += samplesToCopy;
-                dataOffset += samplesToCopy;
-
-                // Send when buffer is full
-                if (bufferIndex >= TARGET_SAMPLES) {
-                  try {
-                    isSendingRef.current = true;
-                    const base64 = int16ArrayToBase64(audioBuffer);
-                    
-                    sessionRef.current.sendRealtimeInput({
-                      audio: { data: base64, mimeType: 'audio/pcm;rate=16000' },
-                    });
-                  } catch {
-                    // Session closed between check and send
-                  } finally {
-                    isSendingRef.current = false;
-                  }
-                  
-                  // Reset index (reuse same buffer, no GC)
-                  bufferIndex = 0;
+              if (pcmBuffer.length >= 2048) {
+                const chunk  = new Int16Array(pcmBuffer.slice(0, 2048));
+                pcmBuffer = pcmBuffer.slice(2048);
+                const base64 = btoa(String.fromCharCode(...new Uint8Array(chunk.buffer)));
+                try {
+                  sessionRef.current.sendRealtimeInput({
+                    audio: { data: base64, mimeType: 'audio/pcm;rate=16000' },
+                  });
+                } catch {
+                  // session closed between guard check and send — safe to ignore
                 }
               }
             };
@@ -263,8 +235,8 @@ export const useGeminiLive = () => {
   };
 
   const stopInterview = useCallback(() => {
+    // Flip flag FIRST — silences the worklet before socket closes
     activeRef.current = false;
-    isSendingRef.current = false;
 
     try { workletNodeRef.current?.disconnect(); } catch { /* ignore */ }
     workletNodeRef.current = null;

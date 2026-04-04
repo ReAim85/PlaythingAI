@@ -3,6 +3,7 @@ import {
   Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Image
 } from '@chakra-ui/react';
 import image1 from "../assets/1-ss.png"
+import karma from "../assets/KarmaPage.jpeg"
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');`;
 
@@ -28,6 +29,19 @@ function ImageSlot({src, label, note, h = '100%', dark = false, radius = '2xl' }
   const iconClr = dark ? 'rgba(255,255,255,0.2)' : C.dim;
   const lblClr  = dark ? 'rgba(255,255,255,0.25)' : C.muted;
   const noteClr = dark ? 'rgba(255,255,255,0.15)' : C.dim;
+   if (src) {
+    return (
+      <Box h={h} w="full" borderRadius={radius} overflow="hidden">
+        <Image
+          src={src}
+          alt={label}
+          w="full"
+          h="full"
+          objectFit="cover"
+        />
+      </Box>
+    );
+  }
 
   return (
     
@@ -364,8 +378,8 @@ export default function LandingPage({ onStart }) {
             <Grid templateColumns={{ base:'1fr', lg:'1fr 1fr' }}>
               <Box h={{ base:'260px', lg:'400px' }} position="relative">
                 {/* ↓↓ Replace with Interviewer UI screenshot ↓↓ */}
-                <ImageSlot label="Karma interviewer UI"
-                  note="Live call screen" h="100%" dark radius="none" />
+                <ImageSlot src={karma} label="Karma interviewer UI"
+                  note="Live call screen" h="150%" dark radius="none" />
                 <HStack position="absolute" top={5} left={5} spacing={2}
                   bg="rgba(255,255,255,0.07)"
                   border="1px solid rgba(255,255,255,0.12)"

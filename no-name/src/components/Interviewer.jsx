@@ -246,7 +246,7 @@ export default function Interviewer({ atsData, apiKey, onInterviewEnd }) {
                   px={4}
                   py={1}
                   borderRadius="full"
-                  fontVariantNumeric="tabular-nums"
+                  fontvariantnumeric="tabular-nums"
                   letterSpacing="0.05em"
                 >
                   {elapsed}
@@ -347,7 +347,7 @@ export default function Interviewer({ atsData, apiKey, onInterviewEnd }) {
         {/* Hint text */}
         {isLive && (
           <Text fontSize="xs" color="gray.700" textAlign="center" mt={4}>
-            Speak naturally — Alex is listening
+            Speak naturally — Karma is listening
           </Text>
         )}
       </Box>
