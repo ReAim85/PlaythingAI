@@ -137,7 +137,7 @@ export const useGeminiLive = () => {
       // ── Fetch a fresh token RIGHT NOW, not on page load ──────────────────
       // This is the key fix — token is valid for 1 min to start a session,
       // so it must be fetched immediately before connecting, never in advance.
-      const tokenRes = await fetch('https://fs6h4ks7-3000.inc1.devtunnels.ms/api/session/gemini-token', { method: 'POST' });
+      const tokenRes = await fetch('https://playthingai-production.up.railway.app/api/session/gemini-token', { method: 'POST' });
       if (!tokenRes.ok) {
         const err = await tokenRes.json();
         throw new Error(err.error || 'Failed to get session token');
