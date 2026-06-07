@@ -1,7 +1,7 @@
 export const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 export const CEREBRAS_API_KEY = process.env.CEREBRAS_API_KEY;
 export const CEREBRAS_BASE_URL = "https://api.cerebras.ai/v1";
-export const CEREBRAS_MODEL = "llama3.1-8b";
+export const CEREBRAS_MODEL = "gpt-oss-120b";
 
 export const PREDEFINED_JDS = {
   software_engineer: {
