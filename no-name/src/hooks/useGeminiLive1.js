@@ -270,7 +270,7 @@ export const useGeminiLive = () => {
   };
 
   const stopInterview = useCallback(() => {
-    // Flip flag FIRST — silences the worklet before socket closes
+    // flip flag FIRST, silences the worklet before socket closes
     activeRef.current = false;
 
     try {
