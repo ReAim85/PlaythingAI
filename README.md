@@ -5,13 +5,12 @@
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![Chakra UI](https://img.shields.io/badge/Chakra_UI-2-319795?style=flat-square&logo=chakraui&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
-![Built at](https://img.shields.io/badge/Built_at-TRAE_Hackathon-C8F135?style=flat-square&labelColor=0f1623)
 
 ---
 
 ## Description
 
-**Plaything.AI** is a full-stack, multi-agent interview preparation platform built at the TRAE Hackathon. It takes a candidate from raw resume upload through to a scored, post-interview evaluation report — entirely driven by AI.
+**Plaything.AI** is a full-stack, multi-agent interview preparation platform. It takes a candidate from raw resume upload through to a scored, post-interview evaluation report — entirely driven by AI.
 
 The problem it solves: most interview prep tools give you generic questions from a static bank. Plaything.AI reads *your* resume, scores it against a real job description using ATS logic, identifies the exact gaps recruiters would flag, and then deploys a live AI voice interviewer (Alex) who probes those specific weaknesses. The result is a personalised, end-to-end pipeline that mirrors what actually happens when a recruiter and hiring manager review your application.
 
@@ -236,8 +235,6 @@ You are free to use, copy, modify, merge, publish, distribute, and sublicense th
 
 ## Credits & Acknowledgments
 
-**Built at the TRAE Hackathon**
-
  Vishal Jha | Full-stack development, AI pipeline architecture |
 
 **Powered by**
@@ -246,4 +243,3 @@ You are free to use, copy, modify, merge, publish, distribute, and sublicense th
 - [Cerebras Cloud](https://cloud.cerebras.ai) — ATS scoring, improvement generation, and interview evaluation
 - [Chakra UI](https://chakra-ui.com) — component library
 - [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) — presentation generation
-- [TRAE](https://trae.ai) — hackathon sponsor
