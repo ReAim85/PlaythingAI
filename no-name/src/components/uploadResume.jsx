@@ -86,7 +86,7 @@ export default function UploadResume({ onAnalysisComplete }) {
         if (jdTitle) formData.append('jd_title', jdTitle);
       }
 
-      const res = await fetch('https://playthingai-production.up.railway.app/api/resume/analyze', { method: 'POST', body: formData });
+      const res = await fetch(`${import.meta.env.VITE_BE_URL}/api/resume/analyze`, { method: 'POST', body: formData });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || 'Analysis failed');

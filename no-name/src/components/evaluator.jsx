@@ -106,7 +106,7 @@ export default function Evaluator({ transcript, atsData, onRestart }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('https://playthingai-production.up.railway.app/api/interview/evaluate', {
+      const res = await fetch(`${import.meta.env.VITE_BE_URL}/api/interview/evaluate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

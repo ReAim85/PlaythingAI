@@ -145,8 +145,8 @@ export const useGeminiLive = () => {
     try {
       await initAudio();
 
-      const tokenRes = await fetch('https://playthingai-production.up.railway.app/api/session/gemini-token', { 
-        method: 'POST' 
+      const tokenRes = await fetch(`${import.meta.env.VITE_BE_URL}/api/session/gemini-token`, {
+        method: 'POST'
       });
       if (!tokenRes.ok) {
         const err = await tokenRes.json();

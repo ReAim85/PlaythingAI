@@ -5,7 +5,7 @@ import { runAtsFixer } from "./atsFixer.js";
 
 async function parseResumeWithGemini(fileBuffer, mimeType) {
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" });
 
   const prompt = `You are a resume parser. Extract all information from this resume and return ONLY valid JSON with no markdown, no backticks, no explanation.
 
