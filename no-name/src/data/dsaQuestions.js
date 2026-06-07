@@ -53,6 +53,8 @@ export const dsaQuestions = [
   },
 ];
 
+//for redeploy cause vercel didn't detected my last push
+
 // the hidden message we send to karma right before the very first problem.
 // it tells her to wrap up the chat and move into the coding round.
 export const transitionNote =
