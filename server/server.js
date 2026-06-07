@@ -1,9 +1,9 @@
+import "./loadEnv.js";
 import express from "express";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs-extra";
-import "dotenv/config";
 
 import resumeRoutes from "./routes/resumeRoutes.js";
 import interviewRoutes from "./routes/Interviewroutes.js";
